@@ -1,5 +1,6 @@
 ---
 tags: package
+sticker: emoji//1f4e6
 ---
 ## clsx? 
 A tiny (234B) utility for constructing `className` strings conditionally.  

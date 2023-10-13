@@ -1,1 +1,4 @@
+---
+sticker: lucide//save
+---
 archive
