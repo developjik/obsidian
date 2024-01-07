@@ -47,4 +47,38 @@ pnpm i lodash-es
 
 따라서, `lodash-es`를 사용하는 이유는 주로 모듈 시스템의 지원과 번들 크기 최적화입니다. 프로젝트에서 필요한 부분만 선택적으로 가져와 사용함으로써, 필요하지 않은 기능을 배제하고 애플리케이션의 성능을 향상시킬 수 있습니다.
 
+## lodash-es 예제
+
+### Math :
+
+#### add
+
+#### ceil
+
+#### divide
+
+#### floor
+
+#### max
+
+#### maxBy
+
+#### mean
+
+#### meanBy
+
+#### min
+
+#### minBy
+
+#### multiply
+
+#### round
+
+#### subtract
+
+#### sum
+
+#### sumBy
+
 
