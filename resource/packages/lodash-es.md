@@ -1,5 +1,7 @@
 ---
 sticker: emoji//1f4e6
+tags:
+  - package
 ---
 ## lodash-es install
 ```shell
@@ -82,3 +84,50 @@ pnpm i lodash-es
 #### sumBy
 
 
+### Function :
+
+after
+
+ary 
+
+before
+
+bind
+
+bindKey
+
+curry
+
+curryRight
+
+debounce
+
+defer
+
+delay
+
+flip
+
+memoize
+
+negate
+
+once
+
+overArgs
+
+partial
+
+partialRight
+
+rearg
+
+rest
+
+spread
+
+throttle
+
+unary
+
+wrap
