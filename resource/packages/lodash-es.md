@@ -131,3 +131,47 @@ throttle
 unary
 
 wrap
+
+### Object :
+
+#### assign
+
+#### extend
+
+#### extendWith
+
+#### assignWith
+
+#### at
+
+#### create
+
+#### defaults
+
+#### defaultsDeep
+
+#### toParis
+
+#### toPairsln
+
+#### findKey
+
+#### findLastKey
+
+#### forIn
+
+#### forInRight
+
+#### forOwn
+
+#### forOwnRight
+
+#### forOwn
+
+#### forOwnRight
+
+#### functions
+
+#### functionsIn
+
+#### get
