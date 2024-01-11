@@ -175,3 +175,53 @@ wrap
 #### functionsIn
 
 #### get
+
+#### has
+
+`has` 함수는 객체 내에 특정 경로에 속성이 존재하는지 여부를 확인하는 데 사용됩니다.
+
+```
+import { has } from 'lodash-es'; // 객체 정의 
+
+const person = { 
+	name: 'Alice', 
+	details: { 
+		age: 30, 
+		address: { 
+			city: 'New York', 
+			country: 'USA' 
+		} 
+	} 
+}; // 객체 내 특정 경로에 속성이 존재하는지 확인 
+
+const hasCity = has(person, 'details.address.city'); 
+console.log(hasCity); // 출력: true 
+
+const hasJob = has(person, 'details.job'); 
+console.log(hasJob); // 출력: false`
+```
+
+
+`Object.hasOwnProperty` vs Lodash `has`  
+`Object.hasOwnProperty`와 Lodash의 `has` 함수는 모두 객체 내에 특정 속성이 존재하는지 확인하는 데 사용됩니다. 그러나 이 두 가지 방법에는 몇 가지 다른점이 있습니다.
+
+1. **사용 방식:**
+    
+    - `Object.hasOwnProperty`: JavaScript의 기본 메서드로, 객체의 프로토타입 체인을 따라가지 않고 객체 자체에 속성이 존재하는지 여부를 확인합니다.
+        
+    - `_.has` (Lodash의 `has` 함수): Lodash 라이브러리의 메서드로, 객체의 특정 경로에 속성이 존재하는지 확인하며, 경로를 따라 내부 속성을 검색할 수 있습니다.
+        
+2. **경로 지정:**
+    
+    - `Object.hasOwnProperty`는 직접적으로 객체 내부의 속성을 확인하며, 프로토타입 체인을 따라가지 않습니다.
+        
+    - Lodash의 `has` 함수는 객체의 특정 경로에 속성이 존재하는지 확인하며, 중첩된 객체에서도 해당 경로를 따라 내부 속성을 검색할 수 있습니다.
+        
+3. **안전한 사용:**
+    
+    - `Object.hasOwnProperty`를 사용할 때, 직접 속성을 확인하므로 프로토타입 체인으로부터의 상속된 속성을 확인하지 않습니다. 이는 원하는 동작이지만, 특정 상황에서는 부모 객체에서 상속받은 속성을 놓치는 경우가 있을 수 있습니다.
+        
+    - Lodash의 `has` 함수는 경로를 따라 내부 속성을 검색할 수 있어 중첩된 객체에서도 안전하게 속성을 확인할 수 있습니다.
+        
+
+따라서 `Object.hasOwnProperty`는 직접 속성을 확인하는 데에 사용되고, Lodash의 `has` 함수는 객체의 경로를 따라 속성을 확인하는 데에 사용됩니다. `has` 함수는 프로토타입 체인을 따라가며 안전하게 중첩된 속성을 확인할 수 있어 더 유연하게 사용할 수 있습니다.
