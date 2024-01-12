@@ -215,7 +215,7 @@ console.log(hasJob); // 출력: false`
     
     - `Object.hasOwnProperty`는 직접적으로 객체 내부의 속성을 확인하며, 프로토타입 체인을 따라가지 않습니다.
         
-    - Lodash의 `has` 함수는 객체의 특정 경로에 속성이 존재하는지 확인하며, 중첩된 객체에서도 해당 경로를 따라 내부 속성을 검색할 수 있습니다.
+    - Lodash의 `has` 함수는 객체의 특정 경로에 속성이 존재하는지 확인하며, 중첩된 객체에서도 해당 경로를 따라 내부 속성을 검색할 수 있습니다. 
         
 3. **안전한 사용:**
     
@@ -225,3 +225,29 @@ console.log(hasJob); // 출력: false`
         
 
 따라서 `Object.hasOwnProperty`는 직접 속성을 확인하는 데에 사용되고, Lodash의 `has` 함수는 객체의 경로를 따라 속성을 확인하는 데에 사용됩니다. `has` 함수는 프로토타입 체인을 따라가며 안전하게 중첩된 속성을 확인할 수 있어 더 유연하게 사용할 수 있습니다.
+
+#### hasIn
+
+`hasIn` 함수는 객체의 프로토타입 체인을 따라 특정 경로에 속성이 존재하는지 여부를 확인합니다.
+
+`hasIn` 함수는 객체의 프로토타입 체인을 따라 특정 경로에 속성이 존재하는지 확인합니다.
+
+객체 내부뿐만 아니라 프로토타입 체인까지 확인하여 해당 경로에 속성이 있는 경우 `true`, 없는 경우 `false`를 반환합니다.
+
+```
+import { hasIn } from 'lodash-es'; // 객체 정의 
+
+function Foo() { 
+	this.a = 1; 
+} 
+Foo.prototype.b = 2; 
+
+const obj = new Foo(); // 객체의 프로토타입 체인을 따라 특정 경로에 속성이 존재하는지 확인 
+
+const hasA = hasIn(obj, 'a'); 
+console.log(hasA); // 출력: true 
+
+const hasB = hasIn(obj, 'b'); 
+console.log(hasB); // 출력: true`
+```
+
