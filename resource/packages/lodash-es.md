@@ -251,3 +251,46 @@ const hasB = hasIn(obj, 'b');
 console.log(hasB); // 출력: true`
 ```
 
+#### invert
+
+#### invertBy
+
+#### invoke
+
+#### keys
+
+#### keysIn
+
+#### mapKeys
+
+#### mapValues
+
+#### merge
+
+#### mergeWith
+
+#### omit
+
+#### omitBy
+
+#### pick
+
+#### pickBy
+
+#### result
+
+#### set
+
+#### setWith
+
+#### transform
+
+#### unset
+
+#### update
+
+#### updateWith
+
+#### values
+
+#### valuesIn
