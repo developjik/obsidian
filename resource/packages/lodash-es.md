@@ -296,3 +296,50 @@ console.log(hasB); // 출력: true`
 #### valuesIn
 
 ### **Collection :**
+
+#### countBy
+
+`countBy` 함수는 배열 또는 객체의 요소들을 기준으로 각 요소의 출현 횟수를 세는 데 사용됩니다.
+
+즉, 이 함수는 주어진 컬렉션(배열 또는 객체)에서 각 항목이 몇 번 나타나느지를 세어 객체로 반환합니다.
+
+이 함수는 첫 번째 매개변수로 컬렉션(배열 또는 객체)을 받고, 두 번째 매개변수는 각 요소를 처리하는 함수로, 각 요소를 기준으로 카운트하고자 하는 특정 조건이나 변형을 지정할 수 있습니다.
+
+```
+import { countBy } from 'lodash-es'; 
+
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 1, 2, 1]; 
+const countedNumbers = countBy(numbers, (num) => num); console.log(countedNumbers); 
+// 출력: { '1': 4, '2': 3, '3': 2, '4': 1, '5': 1, '6': 1, '7': 1, '8': 1, '9': 1, '10': 1 } 
+
+const students = [ 
+	{ id: 1, name: 'Alice', grade: 'A' }, 
+	{ id: 2, name: 'Bob', grade: 'B' }, 
+	{ id: 3, name: 'Charlie', grade: 'A' }, 
+	{ id: 4, name: 'David', grade: 'C' }, 
+	{ id: 5, name: 'Eva', grade: 'B' }, 
+	{ id: 6, name: 'Frank', grade: 'A' }, 
+	{ id: 7, name: 'Alice', grade: 'B' }, 
+	{ id: 8, name: 'Bob', grade: 'C' }, 
+	{ id: 9, name: 'Alice', grade: 'A' }, 
+]; 
+
+// 학생들의 학점(grade) 별 출현 횟수를 카운트합니다. 
+const countedGrades = countBy(students, 'grade'); 
+console.log(countedGrades); // 출력: { A: 4, B: 3, C: 2 } 
+
+// 복잡한 데이터 객체 배열 (객체 안에 객체가 포함된 경우) 
+const data = [ 
+	{ id: 1, info: { category: 'A', value: 10 } }, 
+	{ id: 2, info: { category: 'B', value: 20 } }, 
+	{ id: 3, info: { category: 'A', value: 30 } }, 
+	{ id: 4, info: { category: 'C', value: 40 } }, 
+	{ id: 5, info: { category: 'B', value: 50 } }, 
+	{ id: 6, info: { category: 'A', value: 60 } }, 
+	{ id: 7, info: { category: 'B', value: 70 } }, 
+	{ id: 8, info: { category: 'C', value: 80 } }, 
+	{ id: 9, info: { category: 'A', value: 90 } }, 
+]; 
+
+// 'info' 객체 내 'category' 별 출현 횟수를 카운트합니다. 
+const countedCategories = countBy(data, (item) => item.info.category); console.log(countedCategories); // 출력: { A: 4, B: 3, C: 2 }`
