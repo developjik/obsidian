@@ -343,3 +343,19 @@ const data = [
 
 // 'info' 객체 내 'category' 별 출현 횟수를 카운트합니다. 
 const countedCategories = countBy(data, (item) => item.info.category); console.log(countedCategories); // 출력: { A: 4, B: 3, C: 2 }`
+```
+
+#### forEach
+
+`forEach` 함수를 사용하여 배열의 각 요소를 순회합니다.  
+`forEach` 함수는 각 요소에 대해 주어진 콜백 함수를 실행합니다.
+
+```
+import { forEach } from 'lodash-es'; 
+// 예제: 배열의 각 요소를 출력 
+const fruits = ['apple', 'banana', 'orange']; 
+
+forEach(fruits, (fruit) => { console.log(`I love ${fruit}`); /
+/ 출력 예시: I love apple 
+// 출력 예시: I love banana 
+// 출력 예시: I love orange });``
