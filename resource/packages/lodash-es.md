@@ -358,4 +358,27 @@ const fruits = ['apple', 'banana', 'orange'];
 forEach(fruits, (fruit) => { console.log(`I love ${fruit}`); /
 / 출력 예시: I love apple 
 // 출력 예시: I love banana 
-// 출력 예시: I love orange });``
+// 출력 예시: I love orange });
+```
+
+#### forEachRight
+
+`forEachRight` 함수는 배열의 각 요소를 오른쪽에서 왼쪽으로 반복적으로 실행합니다.
+
+이 함수는 일반적인 `forEach`와 유사하지만, 배열을 오른쪽에서 왼쪽으로 순회하는 차이점이 있습니다.
+
+```
+import { forEachRight } from 'lodash-es'; 
+
+const numbers = [1, 2, 3, 4, 5]; // forEachRight를 사용하여 배열의 각 요소를 출력합니다. forEachRight(numbers, (value, index) => { 
+	console.log(`Index ${index}: ${value}`);
+}); 
+// 출력: 
+// Index 4: 5 
+// Index 3: 4 
+// Index 2: 3 
+// Index 1: 2 
+// Index 0: 1
+```
+
+위 코드에서 `forEachRight` 함수는 `numbers` 배열의 각 요소를 오른쪽에서 왼쪽으로 반복하며, 해당 요소와 해당 요소의 인덱스를 출력합니다. 이를 통해 배열을 역순으로 순회할 수 있습니다.
