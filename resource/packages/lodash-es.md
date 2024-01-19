@@ -410,3 +410,29 @@ const complexArray = [ [1, 2, 3], [4, 5], [6, 7, 8], ];
 const flattenedArray = flatMap(complexArray, (subArray) => subArray.map((num) => num * 2)); 
 console.log(flattenedArray); // 출력: [2, 4, 6, 8, 10, 12, 14, 16]
 ```
+
+#### flatMapDeep
+
+`flatMapDeep` 함수는 Lodash의 함수 중 하나로, `flatMap`과 유사하지만 배열 내의 중첩된 배열까지 평탄화하여 새로운 배열을 생성합니다.
+
+```
+import { flatMapDeep } from 'lodash-es'; 
+
+// 복잡한 배열 정의 
+const complexArray = [ [1, [2, 3]], [4, [5]], [6, 7, [8]], ]; 
+
+// 배열 내의 중첩된 배열을 평탄화하여 새로운 배열 생성 
+const flattenedArray = flatMapDeep(complexArray, (value) => value * 2); 
+console.log(flattenedArray); // 출력: [2, 4, 6, 8, 10, 12, 14, 16] 
+
+const complexData = [ 
+	[{ id: 1, value: 'a' }, { id: 2, value: 'b' }], 
+	[{ id: 3, value: 'c' }], 
+	[{ id: 4, value: 'd' }, { id: 5, value: 'e' }, { id: 6, value: 'f' }], 
+]; 
+
+// 배열 내부의 모든 객체를 평탄화하여 새로운 배열 생성 
+const flattenedArray = flatMapDeep(complexData);
+console.log(flattenedArray); 
+/* 출력: [ { id: 1, value: 'a' }, { id: 2, value: 'b' }, { id: 3, value: 'c' }, { id: 4, value: 'd' }, { id: 5, value: 'e' }, { id: 6, value: 'f' } ] */
+```
