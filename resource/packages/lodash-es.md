@@ -390,3 +390,23 @@ const numbers = [1, 2, 3, 4, 5]; // forEachRight를 사용하여 배열의 각 �
 #### find
 
 #### findLast
+
+#### flatMap
+
+`flatMap` 함수는 배열 내의 각 요소에 대해 콜백 함수를 적용하고, 각 콜백의 결과를 평탄화(flatten)하여 새로운 배열을 생성합니다.
+
+```
+import { flatMap } from 'lodash-es'; 
+
+const numbers = [1, 2, 3]; // 각 요소를 두 배로 복제하여 새로운 배열 생성 
+
+const doubledNumbers = flatMap(numbers, (num) => [num, num * 2]); 
+console.log(doubledNumbers); 
+// 출력: [1, 2, 2, 4, 3, 6] 
+
+const complexArray = [ [1, 2, 3], [4, 5], [6, 7, 8], ]; 
+
+// 배열 내의 배열을 평탄화하여 새로운 배열 생성 
+const flattenedArray = flatMap(complexArray, (subArray) => subArray.map((num) => num * 2)); 
+console.log(flattenedArray); // 출력: [2, 4, 6, 8, 10, 12, 14, 16]
+```
