@@ -436,3 +436,55 @@ const flattenedArray = flatMapDeep(complexData);
 console.log(flattenedArray); 
 /* 출력: [ { id: 1, value: 'a' }, { id: 2, value: 'b' }, { id: 3, value: 'c' }, { id: 4, value: 'd' }, { id: 5, value: 'e' }, { id: 6, value: 'f' } ] */
 ```
+
+#### groupBy
+
+`groupBy` 함수는 주어진 기준에 따라 배열의 요소들을 그룹화하여 객체로 반환합니다.
+
+특정 속성 값을 기준으로 그룹화하거나, 특정 함수의 반환 값을 기준으로 그룹화할 수 있습니다.
+
+```
+import { groupBy } from 'lodash-es'; 
+
+// 객체 배열 정의 
+const users = [ 
+	{ id: 1, name: 'Alice', age: 25 }, 
+	{ id: 2, name: 'Bob', age: 30 }, 
+	{ id: 3, name: 'Charlie', age: 25 }, 
+]; 
+
+// 나이를 기준으로 사용자들을 그룹화 
+const groupedByAge = groupBy(users, 'age'); 
+console.log(groupedByAge); 
+/* 출력: 
+{ 
+	'25': [ 
+		{ id: 1, name: 'Alice', age: 25 }, 
+		{ id: 3, name: 'Charlie', age: 25 } 
+	], 
+	'30': [ 
+		{ id: 2, name: 'Bob', age: 30 } 
+	] 
+} 
+*/ 
+
+const students = [ 
+	{ id: 1, name: 'Alice', details: { grade: 'A', age: 20 } }, 
+	{ id: 2, name: 'Bob', details: { grade: 'B', age: 22 } }, 
+	{ id: 3, name: 'Charlie', details: { grade: 'A', age: 21 } }, 
+	{ id: 4, name: 'David', details: { grade: 'B', age: 20 } }, 
+]; 
+// 성적을 기준으로 학생들을 그룹화 
+const groupedByGrade = groupBy(students, 'details.grade'); console.log(groupedByGrade); 
+/* 출력: 
+{ 
+	'A': [ 
+		{ id: 1, name: 'Alice', details: { grade: 'A', age: 20 } }, 
+		{ id: 3, name: 'Charlie', details: { grade: 'A', age: 21 } } 
+	], 
+	'B': [ 
+		{ id: 2, name: 'Bob', details: { grade: 'B', age: 22 } }, 
+		{ id: 4, name: 'David', details: { grade: 'B', age: 20 } } 
+	] 
+} */
+```
