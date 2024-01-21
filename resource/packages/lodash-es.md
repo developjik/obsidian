@@ -488,3 +488,30 @@ const groupedByGrade = groupBy(students, 'details.grade'); console.log(groupedBy
 	] 
 } */
 ```
+
+#### includes
+
+`includes` 함수는 배열이 특정 요소를 포함하고 있는지 여부를 확인하는 데 사용됩니다.
+
+`includes` 함수는 배열에 특정 요소가 포함되어 있는지 확인할 때 사용되며, 포함되어 있는 경우 `true`, 그렇지 않은 경우 `false`를 반환합니다.
+
+```
+import { includes } from 'lodash-es'; 
+
+const numbers = [1, 2, 3, 4, 5]; 
+
+// 배열에 특정 요소가 포함되어 있는지 확인
+const includesThree = includes(numbers, 3); 
+console.log(includesThree); // 출력: true 
+
+const includesTen = includes(numbers, 10); 
+console.log(includesTen); // 출력: false 
+
+const obj = { name: 'Alice', age: 30, city: 'New York', }; 
+// 객체의 속성 값들을 배열로 변환 후, 특정 값이 포함되어 있는지 확인 
+const objValues = values(obj); 
+const includesAlice = includes(objValues, 'Alice'); 
+console.log(includesAlice); // 출력: true 
+
+const includesLondon = includes(objValues, 'London'); console.log(includesLondon); // 출력: false
+```
