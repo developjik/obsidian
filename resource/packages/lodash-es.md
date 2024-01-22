@@ -515,3 +515,27 @@ console.log(includesAlice); // 출력: true
 
 const includesLondon = includes(objValues, 'London'); console.log(includesLondon); // 출력: false
 ```
+
+#### invokeMap
+
+`invokeMap` 함수는 주어진 메서드를 배열 내의 각 요소에 적용하여 결과 값을 반환하는 데 사용됩니다.
+
+```
+import { invokeMap } from 'lodash-es'; 
+
+const arr = ['123', '456', '789']; 
+
+// 각 요소에 대해 문자열을 숫자로 변환하여 반환 
+const parsedNumbers = invokeMap(arr, 'split', ''); 
+console.log(parsedNumbers); 
+/* 출력: [ ['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'] ] */
+
+const objects = [ 
+	{ message: 'hello', method: function () { return this.message.toUpperCase(); } }, 
+	{ message: 'world', method: function () { return this.message.length; } }, ]; 
+
+// 각 객체의 메서드를 호출하여 결과를 반환 
+const results = invokeMap(objects, 'method'); 
+console.log(results); 
+/* 출력: [ 'HELLO', 5 ] */
+```
