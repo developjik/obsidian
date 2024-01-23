@@ -539,3 +539,9 @@ const results = invokeMap(objects, 'method');
 console.log(results); 
 /* 출력: [ 'HELLO', 5 ] */
 ```
+
+#### keyBy
+
+`keyBy` 함수는 배열을 주어진 특정 속성을 기준으로 객체로 변환하는 데 사용됩니다.
+
+해당 속성 값을 객체의 키로 사용하여 새로운 객체를 생성합니다.
