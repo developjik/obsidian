@@ -545,3 +545,45 @@ console.log(results);
 `keyBy` 함수는 배열을 주어진 특정 속성을 기준으로 객체로 변환하는 데 사용됩니다.
 
 해당 속성 값을 객체의 키로 사용하여 새로운 객체를 생성합니다.
+
+```
+import { keyBy } from 'lodash-es';
+
+const products = [
+  { id: 'p1', name: 'Product 1', category: 'Electronics' },
+  { id: 'p2', name: 'Product 2', category: 'Clothing' },
+  { id: 'p3', name: 'Product 3', category: 'Electronics' },
+  { id: 'p4', name: 'Product 4', category: 'Accessories' },
+];
+
+// 카테고리를 기준으로 객체 배열을 변환하여 새로운 객체 생성
+const productsByCategory = keyBy(products, 'category');
+console.log(productsByCategory);
+/* 
+출력:
+{
+  Electronics: { id: 'p3', name: 'Product 3', category: 'Electronics' },
+  Clothing: { id: 'p2', name: 'Product 2', category: 'Clothing' },
+  Accessories: { id: 'p4', name: 'Product 4', category: 'Accessories' }
+}
+*/
+
+const complexProducts = [
+  { id: 'p1', details: { name: 'Product 1', category: 'Electronics' } },
+  { id: 'p2', details: { name: 'Product 2', category: 'Clothing' } },
+  { id: 'p3', details: { name: 'Product 3', category: 'Electronics' } },
+  { id: 'p4', details: { name: 'Product 4', category: 'Accessories' } },
+];
+
+// details 객체의 category를 기준으로 객체 배열을 변환하여 새로운 객체 생성
+const complexProductssByCategory = keyBy(complexProducts, (product) => product.details.category);
+console.log(complexProductssByCategory);
+/* 
+출력:
+{
+  Electronics: { id: 'p3', details: { name: 'Product 3', category: 'Electronics' } },
+  Clothing: { id: 'p2', details: { name: 'Product 2', category: 'Clothing' } },
+  Accessories: { id: 'p4', details: { name: 'Product 4', category: 'Accessories' } }
+}
+*/
+```
