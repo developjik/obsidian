@@ -593,3 +593,30 @@ console.log(complexProductssByCategory);
 `keyBy` 함수를 사용하여 배열의 요소를 특정 속성을 기준으로 객체로 변환할 수 있으며, 이를 통해 키-값 쌍을 가진 객체를 만들 수 있습니다.
 
 `keyBy` 함수는 배열을 특정 속성을 기준으로 객체로 변환하는 데 사용됩니다. 해당 속성 값을 객체의 키로 사용하여 새로운 객체를 생성합니다. 아래는 `keyBy` 함수를 사용한 예제 코드입니다.
+
+```
+import { keyBy } from 'lodash-es';
+
+// 객체 배열 정의
+const users = [
+  { id: 'user1', name: 'Alice' },
+  { id: 'user2', name: 'Bob' },
+  { id: 'user3', name: 'Charlie' },
+];
+
+// id를 기준으로 객체 배열을 변환하여 새로운 객체 생성
+const usersById = keyBy(users, 'id');
+console.log(usersById);
+/* 
+출력:
+{
+  user1: { id: 'user1', name: 'Alice' },
+  user2: { id: 'user2', name: 'Bob' },
+  user3: { id: 'user3', name: 'Charlie' }
+}
+*/
+```
+
+위 코드에서 `keyBy` 함수는 `users` 배열을 `id` 속성을 기준으로 객체로 변환하여 `usersById` 객체를 생성합니다. 이를 통해 `id` 값을 객체의 키로 사용하고, 각 객체를 해당 키에 매핑하는 새로운 객체를 만듭니다.
+
+`keyBy` 함수를 사용하면 배열의 요소를 특정 속성을 기준으로 객체로 변환할 수 있으며, 이를 통해 각 객체를 고유한 키에 매핑하는 객체를 생성할 수 있습니다. 
