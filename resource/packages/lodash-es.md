@@ -626,3 +626,37 @@ console.log(usersById);
 #### orderBy
 
 `orderBy` 함수는 배열을 주어진 기준에 따라 정렬합니다. 기준은 속성 이름이나 정렬 방식을 나타내는 문자열 또는 함수로 제공할 수 있습니다.
+```
+import { orderBy } from 'lodash-es';
+
+// 객체 배열 정의
+const users = [
+  { name: 'Alice', age: 30 },
+  { name: 'Bob', age: 25 },
+  { name: 'Charlie', age: 35 },
+];
+
+// 나이를 기준으로 오름차순으로 정렬
+const sortedByAgeAsc = orderBy(users, 'age', 'asc');
+console.log(sortedByAgeAsc);
+/* 
+출력:
+[
+  { name: 'Bob', age: 25 },
+  { name: 'Alice', age: 30 },
+  { name: 'Charlie', age: 35 }
+]
+*/
+
+// 이름을 기준으로 내림차순으로 정렬
+const sortedByNameDesc = orderBy(users, 'name', 'desc');
+console.log(sortedByNameDesc);
+/* 
+출력:
+[
+  { name: 'Charlie', age: 35 },
+  { name: 'Bob', age: 25 },
+  { name: 'Alice', age: 30 }
+]
+*/
+```
