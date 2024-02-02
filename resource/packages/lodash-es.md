@@ -668,3 +668,15 @@ console.log(sortedByNameDesc);
 하나의 배열은 조건을 만족하는 요소들로, 다른 하나의 배열은 조건을 만족하지 않는 요소들로 이루어집니다.
 
 `partition` 함수는 주어진 조건에 따라 배열을 분할하여 조건을 만족하는 요소들과 만족하지 않는 요소들로 분리할 수 있습니다.
+
+```
+import { partition } from 'lodash-es';
+
+const numbers = [1, 2, 3, 4, 5, 6];
+
+// 짝수와 홀수로 분할
+const [evenNumbers, oddNumbers] = partition(numbers, (num) => num % 2 === 0);
+
+console.log(evenNumbers); // 출력: [2, 4, 6] (짝수로 분할된 배열)
+console.log(oddNumbers); // 출력: [1, 3, 5] (홀수로 분할된 배열)
+```
