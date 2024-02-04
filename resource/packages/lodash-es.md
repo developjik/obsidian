@@ -680,3 +680,8 @@ const [evenNumbers, oddNumbers] = partition(numbers, (num) => num % 2 === 0);
 console.log(evenNumbers); // 출력: [2, 4, 6] (짝수로 분할된 배열)
 console.log(oddNumbers); // 출력: [1, 3, 5] (홀수로 분할된 배열)
 ```
+#### reduce
+
+#### reduceRight
+
+#### reject
