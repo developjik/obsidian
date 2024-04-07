@@ -18,16 +18,12 @@ git에서 한 브랜치에서 다른 브랜치로 합치는 방법은 Merge와 R
 
 # Rebase와 Merge의 차이점
 
-- Merge로 통합하기![](https://velog.velcdn.com/images%2Fkwonh%2Fpost%2F40b844b8-aca4-4fda-a90f-9e6aa994f033%2Fimage.png)
-
-이 두 브랜치를 합치는 가장 쉬운 방법은 merge 명령을 이용해 3-way Merge로 새로운 커밋을 만들어내는 것입니다.  
-이 때 내부적으로 공통조상인 C2를 이용하게 됩니다.
+Merge로 통합하기![](https://velog.velcdn.com/images%2Fkwonh%2Fpost%2F40b844b8-aca4-4fda-a90f-9e6aa994f033%2Fimage.png)experiment & master 두 브랜치를 합치는 가장 쉬운 방법은 merge 명령을 이용해 3-way Merge로 새로운 커밋을 만들어내는 것입니다.  이 때 내부적으로 공통조상인 C2를 이용하게 됩니다.
 
 ![](https://velog.velcdn.com/images%2Fkwonh%2Fpost%2F36ec664c-c5ed-4872-b656-e7a93628292d%2Fimage.png)
 
-- Rebase로 통합하기
-
-두 브랜치가 나뉘어 있는 아까와 같은 상황에서 시작합니다.
+Rebase로 통합하기
+experiment & master 두 브랜치가 나뉘어 있는 아까와 같은 상황에서 시작합니다.
 
 ![](https://velog.velcdn.com/images%2Fkwonh%2Fpost%2Fd3f91e4a-cbc0-44d4-9ae5-dedea55cca55%2Fimage.png)
 
@@ -42,16 +38,11 @@ Applying: added staged command
 
 그러면 내부에서는 master가 base가 되고, C3과 C4의 차이를 임시 저장하는 공간에 저장합니다. 이 임시저장 공간을 **`Patch`**라고 합니다.
 
-그리고 `base`가 되는 `master`에 `Patch`들이 적용됩니다. (이렇게 생각하는 편이 개인적으로 이해하기 좋다고 생각해 적었습니다.)
-
-다시 정리하겠습니다.
-
 - 공통 커밋(**C2**)에서 시작해서 현재 체크아웃한 experiment 브랜치가 가리키는 커밋까지 `diff`를 차례대로 만들어 `Patch`에 저장
 - experiment브랜치가 master브랜치를 가리키게 함
 - C3에 Patch를 순서대로 적용  
     ![](https://velog.velcdn.com/images%2Fkwonh%2Fpost%2F8c779a0b-ce4b-4760-97c9-9f68bca74656%2Fimage.png)
 
-아까 Merge와 다른점이 눈에 확연히 보입니다!  
 커밋들이 여러갈래로 있었던 Merge와 다르게 커밋 히스토리가 한 줄로 깔끔하게 정렬된 것을 볼 수 있습니다.
 
 이제 마지막으로 master브랜치를 `Fast-forward` 시킵니다.
