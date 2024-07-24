@@ -1,5 +1,8 @@
 ---
 sticker: emoji//1f93d-200d-2642-fe0f
+date: 2024-07-25
+tags:
+  - pm2
 ---
 > [PM2 Official](https://pm2.keymetrics.io/)
 
