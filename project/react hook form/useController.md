@@ -73,18 +73,34 @@ function Input({ control, name }) {
 }
 ```
 
-#### Tips
-외부 제어 컴포넌트(`MUI`, `AntD`, `Chakra UI` 등)를 사용할 때 각 `prop`의 책임을 인식하는 것이 중요합니다.
+### Tips
 
-- `onChange`: 데이터 전송
-- `onBlur`: 입력이 상호작용되었음을 알림
-- `value`: 입력 초기 및 업데이트된 값 설정
-- `ref`: 오류가 있는 입력에 포커스 맞춤
-- `name`: 입력에 고유한 이름 부여
+- 상태를 호스팅하고 `useController` 훅과 결합해 사용하는 것도 좋은 방법이다.
 
-`useController`는 등록 과정을 처리하도록 설계되었습니다. 하나의 컴포넌트 당 하나의 `useController`를 사용하는 것이 이상적입니다.
+```typescript
+const { field } = useController();
+const [value, setValue] = useState(field.value);
 
-```jsx
+onChange={(event) => {
+  field.onChange(parseInt(event.target.value)) // 데이터를 훅 폼에 다시 보냄
+  setValue(event.target.value) // UI 상태 업데이트
+}}
+```
+
+-  입력 필드를 다시 등록하지 마세요.
+
+```typescript
+const { field } = useController({ name: 'test' })
+
+<input {...field} /> // ✅ 올바른 방법
+<input {...field} {...register('test')} /> // ❌ 이중 등록이 발생
+```
+
+- 컴포넌트당 하나의 `useController`를 사용하는 것이 이상적이다. 
+  두 개 이상의 `useController`를 사용해야 할 경우 속성 이름을 변경해야 한다.
+  이때는 `Controller`를 사용하는 것이 좋다.
+
+```typescript
 const { field: input } = useController({ name: 'test' })
 const { field: checkbox } = useController({ name: 'test1' })
 
@@ -92,4 +108,3 @@ const { field: checkbox } = useController({ name: 'test1' })
 <input {...checkbox} />
 ```
 
-React Hook Form이 프로젝트에서 유용하다면 GitHub에서 별을 주고 지원을 부탁드립니다.
