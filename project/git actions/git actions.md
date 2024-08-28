@@ -1,6 +1,4 @@
-### git actions란
 
-`gitHub actions`는 `GitHub`의 코드 리포지토리 내에서 **자동화된 워크플로우를 설정하고 실행할 수 있게 해주는 도구**입니다. 이를 통해 개발자는 코드를 커밋할 때마다 **자동으로 빌드, 테스트, 배포** 등의 작업을 수행할 수 있습니다. 
 ### 1. GitHub Actions란?
 
 `GitHub Actions`는 `GitHub`에서 제공하는 `CI/CD(Continuous Integration/Continuous Delivery)` 도구로, 코드 변경이 발생할 때마다 **자동으로 워크플로우를 실행**할 수 있도록 해줍니다. `GitHub Actions`를 사용하면 **테스트, 빌드, 린트, 배포 등의 작업을 자동화**하여 개발 과정을 크게 개선할 수 있습니다.
@@ -63,37 +61,7 @@ jobs:
    - 예를 들어, 매일 자정에 데이터 백업 스크립트를 실행하도록 설정할 수 있습니다.
 
 ---
-### 설정 방법
-
-GitHub Actions는 `.github/workflows/` 디렉토리에 YAML 파일을 추가하는 것만으로 쉽게 설정할 수 있습니다. 간단한 예제를 통해 기본적인 설정 방법을 살펴보겠습니다.
-
-```yaml
-name: My Workflow
-
-on: push:
-  branches:
-    - main
-    - 'feature/*'
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Check out code
-      uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-    - name: Install dependencies
-      run: pip install -r requirements.txt
-    - name: Run tests
-      run: pytest
-```
-
-이 워크플로우는 `main` 브랜치와 `feature/*` 패턴에 맞는 브랜치에 푸시될 때마다 Python 테스트를 실행합니다.
-
-#### 5. 커스텀 액션 만들기
+#### 커스텀 액션 만들기
 
 GitHub Actions는 사전 정의된 액션 외에도, 사용자가 직접 커스텀 액션을 만들어 사용할 수 있습니다. 커스텀 액션은 JavaScript로 작성하거나 Docker 컨테이너로 정의할 수 있습니다. 
 
@@ -114,9 +82,3 @@ try {
 ```
 
 위 예제는 "Hello {name}!" 메시지를 출력하고 현재 시간을 반환하는 간단한 커스텀 액션입니다. 이를 통해 특정 프로젝트에 맞춤화된 워크플로우를 구성할 수 있습니다.
-
-#### 6. 결론
-
-GitHub Actions는 GitHub 리포지토리 내에서 코드의 품질을 관리하고, 배포 과정을 자동화하며, 개발 워크플로우를 최적화할 수 있는 강력한 도구입니다. 특히 GitHub과의 높은 통합성 덕분에 별도의 CI/CD 서버를 운영할 필요 없이 쉽게 설정하고 사용할 수 있습니다.
-
-지금 바로 GitHub Actions를 활용해 자동화된 워크플로우를 구축해보세요! 새로운 워크플로우를 추가하고, 팀의 생산성을 높이는 경험을 하게 될 것입니다.
