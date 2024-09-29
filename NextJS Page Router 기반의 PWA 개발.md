@@ -177,9 +177,9 @@ export default function OfflineDetector() {
 }
 ```
 
-## 3. 푸시 알림 구현
+#### PWA 푸시 알림 구현
 
-푸시 알림을 구현하기 위해 Firebase Cloud Messaging (FCM)을 사용합니다.
+푸시 알림을 구현하기 위해 `Firebase Cloud Messaging (FCM)`을 사용합니다.
 
 1. Firebase 프로젝트 설정 및 필요한 패키지 설치:
 
