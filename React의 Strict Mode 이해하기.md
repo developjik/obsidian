@@ -85,6 +85,8 @@ function DoubleRenderComponent() {
 
 ### 사용 방법
 
+#### React
+
 `Strict Mode`를 사용하려면 애플리케이션의 루트나 특정 부분을 `<React.StrictMode>` 태그로 감싸면 됩니다.
 
 ```jsx
@@ -103,7 +105,29 @@ function App() {
 export default App;
 ```
 
+#### Next.js
+
+
+1. 프로젝트 루트 디렉토리에 있는 `next.config.js` 파일을 엽니다. 만약 이 파일이 없다면 새로 생성합니다.
+
+2. 다음과 같이 `next.config.js` 파일을 수정하거나 작성합니다:
+
+```javascript
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  // 기타 Next.js 설정...
+}
+
+module.exports = nextConfig
+```
+
+3. 이 설정을 저장한 후 Next.js 개발 서버를 재시작합니다.
+
+이렇게 하면 전체 Next.js 애플리케이션에 대해 `React Strict Mode`가 활성화됩니다.
+
 ---
+
 ### 이점
 
 1. **버그 조기 발견**: 잠재적인 문제를 개발 단계에서 미리 발견할 수 있습니다.
@@ -114,5 +138,9 @@ export default App;
 ---
 ### 주의사항
 
-`Strict Mode`는 개발 모드에서만 작동하며, 프로덕션 빌드에는 영향을 미치지 않습니다. 따라서 성능에 대한 걱정 없이 안심하고 사용할 수 있습니다.
+1. `Strict Mode`는 개발 모드에서만 추가적인 검사를 수행합니다. 프로덕션 빌드에서는 이러한 추가 검사가 실행되지 않습니다.
+
+2. Next.js 13 이상의 버전에서는 기본적으로 `reactStrictMode: true`가 설정되어 있습니다. 만약 이를 비활성화하고 싶다면 `next.config.js`에서 `reactStrictMode: false`로 설정할 수 있습니다.
+
+3. `Strict Mode`를 활성화하면 일부 라이브러리나 레거시 코드에서 경고나 오류가 발생할 수 있습니다. 이는 해당 코드가 `React`의 최신 권장 사항을 따르지 않기 때문입니다. 이러한 경우, 관련 코드를 최신 패턴에 맞게 업데이트하는 것이 좋습니다.
 
