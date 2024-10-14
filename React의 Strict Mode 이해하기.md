@@ -6,21 +6,83 @@
 ### 주요 기능
 
 1. **안전하지 않은 생명주기 메서드 식별**: 
-   더 이상 권장되지 않는 생명주기 메서드 사용 시 경고를 표시합니다.
+
+예시:
+```jsx
+class OldComponent extends React.Component {
+  componentWillMount() {
+    // 이 메서드는 더 이상 권장되지 않습니다.
+    console.log("컴포넌트가 마운트됩니다");
+  }
+
+  render() {
+    return <div>Hello World</div>;
+  }
+}
+```
+이 경우, `Strict Mode`는 `componentWillMount`가 안전하지 않은 생명주기 메서드임을 경고합니다.
 
 2. **레거시 문자열 ref 사용에 대한 경고**: 
-   문자열 ref는 현재 권장되지 않으며, Strict Mode에서 이를 사용하면 경고를 받게 됩니다.
+
+예시:
+```jsx
+class OldRefComponent extends React.Component {
+  render() {
+    return <div ref="myDiv">Hello World</div>;
+  }
+}
+```
+이 코드에서 `ref="myDiv"`와 같은 문자열 ref 사용 시 `Strict Mode`가 경고를 표시합니다.
 
 3. **예기치 않은 부작용 검사**: 
-   특정 생명주기 메서드를 이중으로 호출하여 부작용을 찾아냅니다.
+
+예시:
+```jsx
+function ExampleComponent() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    // 이 부작용은 마운트와 업데이트 시 두 번 실행됩니다.
+    console.log("컴포넌트가 렌더링되었습니다");
+  });
+
+  return <div>{count}</div>;
+}
+```
+`Strict Mode`에서는 이 `useEffect`가 개발 모드에서 두 번 실행되어, 부작용의 일관성을 검사합니다.
 
 4. **구 Context API 사용 감지**: 
-   더 이상 사용되지 않는 Context API 사용 시 경고를 표시합니다.
+
+예시:
+```jsx
+class OldContextComponent extends React.Component {
+  static childContextTypes = {
+    color: PropTypes.string
+  };
+
+  getChildContext() {
+    return { color: "purple" };
+  }
+
+  render() {
+    return <Button>Click me</Button>;
+  }
+}
+```
+이러한 구 `Context API` 사용 시 `Strict Mode`가 경고를 표시합니다.
 
 5. **예기치 않은 부작용 검사를 위한 이중 렌더링**:
-   개발 모드에서 컴포넌트를 의도적으로 두 번 렌더링하여 일관성 없는 렌더링을 감지합니다.
 
----
+예시:
+```jsx
+function DoubleRenderComponent() {
+  console.log("렌더링");
+  return <div>Hello World</div>;
+}
+```
+
+--- 
+
 ### 사용 방법
 
 `Strict Mode`를 사용하려면 애플리케이션의 루트나 특정 부분을 `<React.StrictMode>` 태그로 감싸면 됩니다.
