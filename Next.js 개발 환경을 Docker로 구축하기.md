@@ -47,10 +47,6 @@ RUN apk add --no-cache git
 COPY package*.json ./
 RUN npm install
 
-# Next.js 설정 파일 복사
-COPY next.config.js ./
-COPY tsconfig*.json ./
-
 EXPOSE 3000
 EXPOSE 3001
 
