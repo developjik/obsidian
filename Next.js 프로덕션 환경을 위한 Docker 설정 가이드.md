@@ -60,7 +60,7 @@ WORKDIR /app
 
 # 프로덕션 환경 설정
 ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED 1 # Next.js의 원격 데이터 수집(텔레메트리) 기능을 비활성화
 
 # 보안을 위한 비루트 사용자 생성
 RUN addgroup --system --gid 1001 nodejs
