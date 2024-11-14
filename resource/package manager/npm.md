@@ -141,15 +141,15 @@ npm outdated
 ```json
 {
   "scripts": {
-    "prebuild": "npm run clean",
-    "build": "webpack --mode production",
-    "postbuild": "echo 'Build complete!'",
+    "prebuild": "npm run clean",     // build 스크립트 실행 전에 자동으로 실행
+    "build": "webpack --mode production", // 메인 빌드 스크립트
+    "postbuild": "echo 'Build complete!'", // build 스크립트 완료 후 자동으로 실행
     
-    "clean": "rimraf dist",
-    "validate": "npm run lint && npm run test",
+    "clean": "rimraf dist",          // 빌드 디렉토리 정리
+    "validate": "npm run lint && npm run test", // 린트와 테스트 순차 실행
     
-    "deploy": "npm run build && npm run upload",
-    "upload": "aws s3 sync dist/ s3://my-bucket/"
+    "deploy": "npm run build && npm run upload", // 빌드 후 업로드 순차 실행
+    "upload": "aws s3 sync dist/ s3://my-bucket/" // AWS S3에 배포
   }
 }
 ```
@@ -175,10 +175,103 @@ npm audit --json
 
 ### .npmrc 설정
 ```ini
+# 패키지 설치 시 정확한 버전을 사용 (^, ~ 같은 버전 범위 지정자를 사용하지 않음)
+# 예: express: "4.17.1" (O) / express: "^4.17.1" (X)
 save-exact=true
+
+# package-lock.json 파일 생성 및 관리를 활성화
+# 의존성 트리를 정확하게 고정하고 팀원 간 동일한 버전 사용을 보장
 package-lock=true
+
+# npm install 실행 시 자동으로 보안 취약점 검사 수행
+# 취약한 패키지 발견 시 경고 메시지 표시
 audit=true
+
+# npm install 시 표시되는 펀딩 메시지를 비활성화
+# 터미널 출력을 깔끔하게 유지
 fund=false
+
+# --------- 추가 유용한 설정들 ---------
+
+# 회사 프록시 설정
+# proxy=http://proxy.company.com:8080
+# https-proxy=http://proxy.company.com:8080
+
+# npm 기본 레지스트리 설정
+# registry=https://registry.npmjs.org/
+
+# 특정 스코프의 패키지를 위한 사설 레지스트리 설정
+# @mycompany:registry=https://npm.mycompany.com/
+
+# 로그 레벨 설정 (silent, error, warn, notice, http, timing, info, verbose, silly)
+# loglevel=warn
+
+# npm 캐시 저장 위치 지정
+# cache=/custom/cache/directory
+
+# 네트워크 요청 타임아웃 설정 (밀리초)
+# timeout=30000
+
+# SSL 인증서 검증 비활성화 (개발 환경에서만 사용 권장)
+# strict-ssl=false
+
+# --------- 보안 관련 설정 ---------
+
+# 패키지 설치 전 항상 체크섬 검증
+# verify-store-integrity=true
+
+# 패키지의 설치 전/후 스크립트 실행 방지
+# ignore-scripts=true
+
+# --------- 초기화 관련 설정 ---------
+
+# npm init 시 기본 author 설정
+# init-author-name=Your Name
+# init-author-email=your.email@example.com
+# init-author-url=https://your-website.com
+# init-license=MIT
+# init-version=1.0.0
+
+# --------- 성능 관련 설정 ---------
+
+# 병렬 네트워크 요청 수 제한
+# maxsockets=50
+
+# 메모리 제한 설정 (바이트 단위)
+# max-old-space-size=4096
+
+# --------- CI/CD 환경 설정 ---------
+
+# CI 환경에서 진행 표시줄 비활성화
+# progress=false
+
+# 에러 로그 자세히 표시
+# loglevel=error
+
+# --------- 배포 관련 설정 ---------
+
+# npm publish 시 포함할 파일 지정
+# files[]=dist
+# files[]=README.md
+
+# 배포 시 태그 설정
+# tag=latest
+
+# --------- 실험적 기능 설정 ---------
+
+# 실험적 기능 활성화 (필요한 경우에만 사용)
+# experiments-enabled=true
+
+# --------- 캐시 관련 설정 ---------
+
+# 캐시 최대 크기 설정 (GB 단위)
+# cache-max=10
+
+# 캐시 최소 시간 설정 (분 단위)
+# cache-min=10
+
+# npm install 시 오프라인 모드 사용
+# offline=true
 ```
 
 ## 실무 팁과 트러블슈팅
@@ -240,14 +333,3 @@ npm prune
 # 중복 패키지 확인
 npm dedupe
 ```
-
-## 결론
-
-NPM은 현대 JavaScript 개발의 근간을 이루는 핵심 도구입니다. 효율적인 패키지 관리와 의존성 처리를 통해 개발 생산성을 크게 향상시킬 수 있습니다. 이 가이드에서 다룬 내용을 기반으로 NPM을 더욱 효과적으로 활용하시기 바랍니다.
-
-### 추가 학습 자원
-- [NPM 공식 문서](https://docs.npmjs.com/)
-- [Node.js 공식 웹사이트](https://nodejs.org/)
-- [패키지 검색](https://www.npmjs.com/)
-
-프로젝트의 규모와 요구사항에 따라 적절한 NPM 기능을 선택하고 활용하시기 바랍니다. 특히 보안 관련 사항은 정기적으로 점검하는 것이 중요합니다.
