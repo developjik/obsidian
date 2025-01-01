@@ -21,6 +21,58 @@ sticker: emoji//1f623
 - 코드의 가독성과 유지보수성 향상
 - 개발자 간의 명확한 의사소통 가능
 
+### Q3: 웹 성능 최적화 방법에 대해 설명해주세요.
+
+**답변:** 웹 성능 최적화는 페이지 로딩 시간을 줄이고 사용자 경험을 개선하기 위한 다양한 기법들을 포함합니다.
+
+**해설:**
+
+1. 리소스 최적화
+    - 이미지 최적화 (WebP 사용, 적절한 크기로 리사이징)
+    - JavaScript/CSS 파일 번들링 및 압축
+    - 코드 스플리팅
+2. 로딩 최적화
+    - 레이지 로딩 구현
+    - 프리로딩 적용
+    - 캐싱 전략 수립
+3. 렌더링 최적화
+    - CSS 애니메이션은 transform 사용
+    - 불필요한 리렌더링 방지
+    - 레이아웃 쓰로틀링 최소화
+4. React 관련 최적화
+    - React.memo 사용
+    - useMemo와 useCallback 적절히 활용
+    - 상태 관리 최적화
+
+### Q4: CSR과 SSR의 차이점과 각각의 장단점을 설명해주세요.
+
+**답변:** `CSR(Client Side Rendering)`은 **클라이언트에서 JavaScript를 통해 렌더링하는 방식**이고, `SSR(Server Side Rendering)`은 **서버에서 HTML을 생성하여 클라이언트로 전송하는 방식**입니다.
+
+**해설:** 
+
+CSR의 특징:
+
+- 장점:
+    - 초기 로딩 후 빠른 페이지 전환
+    - 서버 부하 감소
+    - 풍부한 인터랙션 구현 용이
+- 단점:
+    - 초기 로딩 시간이 김
+    - SEO가 어려움
+    - 자바스크립트 필수
+
+SSR의 특징:
+
+- 장점:
+    - 빠른 초기 로딩
+    - 좋은 SEO
+    - 자바스크립트 비활성화 환경 대응
+- 단점:
+    - 서버 부하 증가
+    - 페이지 전환시 새로고침 필요
+    - 개발 복잡도 증가
+
+
 ---
 ## CSS
 
@@ -101,3 +153,57 @@ element.addEventListener('click', function(e) {
 - 기본적으로 `버블링`이 더 자주 사용됨
 - `event.stopPropagation()`으로 **전파를 중단**할 수 있음
 - `이벤트 위임(Event Delegation) 패턴` 구현에 활용
+
+---
+## React
+
+### Q1: React의 생명주기(Lifecycle)에 대해 설명해주세요.
+
+**답변:** `React` 컴포넌트의 생명주기는 `마운팅`, `업데이트`, `언마운팅`의 세 단계로 구성되며, 각 단계에서 특정 메서드들이 호출됩니다.
+
+**해설:**
+
+- `마운팅` 단계:
+    - constructor
+    - getDerivedStateFromProps
+    - render
+    - componentDidMount
+- `업데이트` 단계:
+    - getDerivedStateFromProps
+    - shouldComponentUpdate
+    - render
+    - getSnapshotBeforeUpdate
+    - componentDidUpdate
+- `언마운팅` 단계:
+    - componentWillUnmount
+
+`Hooks`를 사용하는 경우:
+
+```jsx
+// 클래스 컴포넌트의 생명주기를 훅으로 대체
+useEffect(() => {
+  // componentDidMount
+  return () => {
+    // componentWillUnmount
+  };
+}, []); // 의존성 배열
+
+```
+
+### Q2: Virtual DOM이란 무엇이며 어떤 이점이 있나요?
+
+**답변:** `Virtual DOM`은 **실제 DOM의 가벼운 복사본**으로, **`React`가 상태 변화를 감지했을 때 먼저 `Virtual DOM`에서 변경사항을 적용하고 실제 DOM과 비교하여 필요한 부분만 업데이트하는 방식**입니다.
+
+**해설:**
+
+- 장점:
+    - 불필요한 DOM 조작 최소화로 성능 향상
+    - 브라우저의 리플로우/리페인트 최소화
+    - 크로스 플랫폼 지원 용이
+- 동작 방식:
+    1. 상태 변화 발생
+    2. 새로운 Virtual DOM 트리 생성
+    3. 이전 Virtual DOM과 비교(Diffing)
+    4. 실제 변경이 필요한 부분만 실제 DOM에 적용
+
+---
