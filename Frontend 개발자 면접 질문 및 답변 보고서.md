@@ -206,4 +206,73 @@ useEffect(() => {
     3. 이전 Virtual DOM과 비교(Diffing)
     4. 실제 변경이 필요한 부분만 실제 DOM에 적용
 
+### Q3: Redux의 핵심 원칙과 동작 방식에 대해 설명해주세요.
+
+**답변:** `Redux`는 단방향 데이터 흐름을 가진 상태 관리 라이브러리로, `Store`, `Action`, `Reducer`라는 세 가지 핵심 개념을 가지고 있습니다.
+
+**해설:**
+
+- 세 가지 원칙:
+    1. **Single Source of Truth** (단일 진실 공급원)
+    2. **State is Read-Only** (상태는 읽기 전용)
+    3. Changes are made with **Pure Functions** (순수 함수로 변경)
+
+```js
+// Action 정의
+const addTodo = (text) => ({
+  type: 'ADD_TODO',
+  payload: text
+});
+
+// Reducer 구현
+const todoReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_TODO':
+      return [...state, { text: action.payload, completed: false }];
+    default:
+      return state;
+  }
+};
+
+// Store 사용
+const store = createStore(todoReducer);
+store.dispatch(addTodo('리덕스 공부하기'));
+
+```
+### Q4: 다른 상태 관리 도구들(MobX, Recoil)과 비교했을 때 Redux의 장단점은?
+
+**답변:** 각 상태 관리 도구는 서로 다른 철학과 특징을 가지고 있어 프로젝트의 요구사항에 따라 적절한 선택이 필요합니다.
+
+**해설:** 
+
+Redux:
+
+- 장점:
+    - 예측 가능한 상태 관리
+    - 강력한 개발자 도구
+    - 큰 커뮤니티와 생태계
+- 단점:
+    - 보일러플레이트 코드가 많음
+    - 학습 곡선이 가파름
+
+MobX:
+
+- 장점:
+    - 적은 보일러플레이트
+    - 유연한 상태 관리
+    - 객체지향적 접근
+- 단점:
+    - 자유도가 높아 일관성 유지가 어려울 수 있음
+    - 디버깅이 상대적으로 어려움
+
+Recoil:
+
+- 장점:
+    - React에 최적화된 설계
+    - 비동기 처리가 용이
+    - 작은 단위의 상태 관리 가능
+- 단점:
+    - 비교적 새로운 기술로 생태계가 작음
+    - Facebook 의존성
+
 ---
