@@ -276,3 +276,195 @@ Recoil:
     - Facebook 의존성
 
 ---
+
+## TypeScript
+
+### Q1: any와 unknown 타입의 차이점은 무엇인가요?
+
+**답변:** `any`와 `unknown`은 **모두 모든 타입의 값을 할당할 수 있지만, `unknown`은 타입 안정성을 제공하는 반면 `any`는 타입 검사를 완전히 무시**합니다.
+
+**해설:**
+
+```tsx
+let anyVar: any = 10;
+let unknownVar: unknown = 10;
+
+// any는 모든 연산 허용
+anyVar.foo.bar; // 오류 없음
+anyVar(); // 오류 없음
+
+// unknown은 타입 체크 필요
+unknownVar.foo.bar; // 오류
+unknownVar(); // 오류
+
+// unknown은 타입 검사 후 사용 가능
+if (typeof unknownVar === 'function') {
+  unknownVar(); // 정상 동작
+}
+```
+
+### Q2: 제네릭(Generics)을 사용하는 이유와 장점은 무엇인가요?
+
+**답변:** `제네릭`은 **타입을 매개변수화하여 재사용 가능한 컴포넌트**를 만들 수 있게 해주는 기능입니다.
+
+**해설:**
+
+```tsx
+// 제네릭 사용 예시
+interface Box<T> {
+  value: T;
+}
+
+// 함수에서의 제네릭 사용
+function identity<T>(arg: T): T {
+  return arg;
+}
+
+// 제네릭 제약조건
+interface Lengthwise {
+  length: number;
+}
+
+function loggingIdentity<T extends Lengthwise>(arg: T): T {
+  console.log(arg.length);
+  return arg;
+}
+```
+
+장점:
+
+- 타입 안정성 보장
+- 코드 재사용성 향상
+- 컴파일 시점에서 타입 체크
+- 더 명확한 API 설계 가능
+
+---
+
+## 웹 보안
+
+### Q1: XSS와 CSRF 공격에 대해 설명하고 방어 방법을 말씀해주세요.
+
+**답변:** `XSS(Cross-Site Scripting)`는 **악성 스크립트를 웹 페이지에 주입하는 공격**이며, `CSRF(Cross-Site Request Forgery)`는 **사용자의 권한을 이용해 악의적인 요청을 보내는 공격**입니다.
+
+**해설:** 
+
+XSS 방어 방법:
+
+```jsx
+// 잘못된 예시
+element.innerHTML = userInput;
+
+// 올바른 방법
+element.textContent = userInput;
+
+// React의 경우
+const dangerousHTML = {
+  __html: sanitizeHTML(userInput) // 적절한 sanitize 라이브러리 사용
+};
+<div dangerouslySetInnerHTML={dangerousHTML} />;
+```
+
+CSRF 방어 방법:
+
+- CSRF 토큰 사용
+- Same-Site 쿠키 설정
+- Origin 검증
+
+### Q2: Content Security Policy(CSP)에 대해 설명해주세요.
+
+**답변:** `CSP`는 `XSS` 같은 **특정 유형의 공격을 감지하고 완화하기 위한 추가적인 보안 계층**입니다.
+
+**해설:**
+
+```html
+<!-- CSP 헤더 예시 -->
+Content-Security-Policy: default-src 'self';
+                        script-src 'self' 'unsafe-inline' 'unsafe-eval';
+                        style-src 'self' 'unsafe-inline';
+                        img-src 'self' data: https:;
+```
+
+주요 기능:
+
+- 신뢰할 수 있는 콘텐츠 소스 지정
+- 인라인 스크립트 실행 제어
+- 리소스 로딩 제어
+- 리포팅 기능
+
+---
+## 테스팅 전략
+
+### Q11: 단위 테스트, 통합 테스트, E2E 테스트의 차이점과 각각의 사용 사례는?
+
+**답변:** 각 테스트 유형은 다른 범위와 목적을 가지고 있으며, 효과적인 테스트 전략을 위해서는 이들을 적절히 조합해야 합니다.
+
+**해설:**
+
+```js
+// 단위 테스트 예시 (Jest)
+describe('calculateTotal', () => {
+  test('correctly calculates total with tax', () => {
+    expect(calculateTotal(100, 0.1)).toBe(110);
+  });
+});
+
+// 통합 테스트 예시 (React Testing Library)
+test('form submission works correctly', async () => {
+  render(<UserForm />);
+  fireEvent.change(screen.getByLabelText(/username/i), {
+    target: { value: 'testuser' },
+  });
+  fireEvent.click(screen.getByText(/submit/i));
+  await waitFor(() => {
+    expect(screen.getByText(/success/i)).toBeInTheDocument();
+  });
+});
+
+// E2E 테스트 예시 (Cypress)
+describe('Login Flow', () => {
+  it('successfully logs in', () => {
+    cy.visit('/login');
+    cy.get('[data-testid="username"]').type('user');
+    cy.get('[data-testid="password"]').type('pass');
+    cy.get('button').click();
+    cy.url().should('include', '/dashboard');
+  });
+});
+```
+
+### Q2: React 컴포넌트 테스트 전략에 대해 설명해주세요.
+
+**답변:** `React` 컴포넌트 테스트는 **사용자 관점에서의 동작을 검증하는 것이 중요**하며, React Testing Library의 철학을 따르는 것이 좋습니다.
+
+**해설:**
+
+```js
+// 잘못된 테스트 방식 (구현 세부사항에 의존)
+test('state updates correctly', () => {
+  const wrapper = shallow(<Counter />);
+  expect(wrapper.state('count')).toBe(0);
+});
+
+// 올바른 테스트 방식 (사용자 관점)
+test('counter increments when button is clicked', () => {
+  render(<Counter />);
+  const button = screen.getByText(/increment/i);
+  fireEvent.click(button);
+  expect(screen.getByText(/count: 1/i)).toBeInTheDocument();
+});
+
+```
+
+테스트 우선순위:
+
+1. 핵심 비즈니스 로직
+2. 사용자 상호작용이 많은 컴포넌트
+3. 재사용성이 높은 공통 컴포넌트
+4. 에러 경계(Error Boundaries)
+
+좋은 테스트의 특징:
+
+- 구현이 아닌 동작을 테스트
+- 실제 사용자 시나리오 반영
+- 유지보수가 용이
+- 신뢰할 수 있는 결과 제공
