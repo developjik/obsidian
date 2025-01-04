@@ -72,6 +72,110 @@ SSR의 특징:
     - 페이지 전환시 새로고침 필요
     - 개발 복잡도 증가
 
+### Q5: 브라우저 렌더링 과정을 설명해주세요.
+
+**답변:** 브라우저 렌더링은 `HTML`, `CSS`, `JavaScript`를 화면에 표시하기 위한 일련의 과정입니다.
+
+**해설:** 
+
+렌더링 과정:
+
+1. **DOM 트리 생성 (HTML 파싱)**
+2. **CSSOM 트리 생성 (CSS 파싱)**
+3. **렌더 트리 생성 (DOM + CSSOM)**
+4. **레이아웃 (요소들의 위치와 크기 계산)**
+5. **페인팅 (실제 픽셀로 그리기)**
+6. **컴포지팅 (레이어 합성)**
+
+### Q6: Critical Rendering Path를 최적화하는 방법은?
+
+**답변:** `Critical Rendering Path` 최적화는 초기 렌더링 성능을 향상시키기 위한 기법들입니다.
+
+**해설:** 최적화 방법:
+
+1. `CSS`는 head에, `JavaScript`는 body 끝에 배치
+2. 중요하지 않은 `JavaScript`에 `async/defer` 사용
+3. 중요 `CSS` 인라인화
+4. 미디어 쿼리 활용
+5. `JavaScript` 번들 분할
+
+### Q7: localStorage와 sessionStorage의 차이점은?
+
+**답변:** 두 저장소는 웹 스토리지 API의 일부로, 데이터 지속성과 범위에서 차이가 있습니다.
+
+**해설:**
+```js
+// localStorage 예시
+localStorage.setItem('user', JSON.stringify({id: 1, name: 'John'}));
+// 브라우저를 닫았다 열어도 데이터 유지
+
+// sessionStorage 예시
+sessionStorage.setItem('token', 'abc123');
+// 탭을 닫으면 데이터 삭제
+```
+
+주요 차이점:
+
+- 데이터 지속성
+- 저장 범위
+- 용량 제한
+- 도메인 범위
+
+### Q8: 쿠키와 웹 스토리지의 차이점은?
+
+**답변:** 쿠키와 웹 스토리지는 다른 목적과 특성을 가진 데이터 저장 메커니즘입니다.
+
+**해설:** 차이점:
+
+1. 용량 제한 (쿠키 4KB, 웹 스토리지 5MB~10MB)
+2. 서버 전송 (쿠키는 자동 전송, 웹 스토리지는 클라이언트만)
+3. 만료 시간 설정 가능 여부
+4. 접근성과 보안 특성
+
+### Q9: ARIA 역할과 속성에 대해 설명해주세요.
+
+**답변:** `ARIA`는 접근성 있는 리치 인터넷 애플리케이션을 위한 규격으로, `HTML` 요소에 추가적인 의미를 부여합니다.
+
+**해설:**
+
+```jsx
+<!-- ARIA 사용 예시 -->
+<button 
+  role="tab"
+  aria-selected="true"
+  aria-controls="panel-1"
+>
+  탭 1
+</button>
+<div
+  role="tabpanel"
+  id="panel-1"
+  aria-labelledby="tab-1"
+>
+  내용 1
+</div>
+```
+
+### Q10: 키보드 접근성을 보장하는 방법은?
+
+**답변:** 키보드 접근성은 마우스를 사용할 수 없는 사용자를 위해 필수적입니다.
+
+**해설:**
+
+```js
+// 키보드 이벤트 처리 예시
+const HandleKeyPress = (event) => {
+  if (event.key === 'Enter' || event.key === ' ') {
+    // 실행 로직
+  }
+};
+
+// 포커스 관리
+const handleModalOpen = () => {
+  modalRef.current.focus();
+};
+```
+
 
 ---
 ## CSS
@@ -394,7 +498,7 @@ Content-Security-Policy: default-src 'self';
 ---
 ## 테스팅 전략
 
-### Q11: 단위 테스트, 통합 테스트, E2E 테스트의 차이점과 각각의 사용 사례는?
+### Q1: 단위 테스트, 통합 테스트, E2E 테스트의 차이점과 각각의 사용 사례는?
 
 **답변:** 각 테스트 유형은 다른 범위와 목적을 가지고 있으며, 효과적인 테스트 전략을 위해서는 이들을 적절히 조합해야 합니다.
 
@@ -468,3 +572,71 @@ test('counter increments when button is clicked', () => {
 - 실제 사용자 시나리오 반영
 - 유지보수가 용이
 - 신뢰할 수 있는 결과 제공
+
+
+## 모던 JavaScript
+
+### Q23: Promise와 async/await의 차이점과 사용 케이스는?
+
+**답변:** Promise와 async/await는 비동기 처리를 위한 패턴으로, 각각의 장단점이 있습니다.
+
+**해설:**
+
+javascript
+
+Copy
+
+`// Promise 체이닝 fetchUser()   .then(user => fetchUserPosts(user.id))  .then(posts => {    console.log(posts);  })  .catch(error => {    console.error(error);  }); // async/await async function getUserPosts() {   try {    const user = await fetchUser();    const posts = await fetchUserPosts(user.id);    console.log(posts);  } catch (error) {    console.error(error);  } }`
+
+### Q24: 이벤트 루프와 태스크 큐에 대해 설명해주세요.
+
+**답변:** 이벤트 루프는 JavaScript의 동시성 모델을 구현하는 메커니즘입니다.
+
+**해설:**
+
+javascript
+
+Copy
+
+`console.log('시작'); setTimeout(() => {   console.log('타이머'); }, 0); Promise.resolve()   .then(() => console.log('프로미스')); console.log('끝'); // 출력 순서: // 시작 // 끝 // 프로미스 // 타이머`
+
+## React 심화
+
+### Q25: React.memo(), useMemo(), useCallback()의 차이점과 사용 시기는?
+
+**답변:** 세 가지 모두 성능 최적화를 위한 도구이지만, 각각 다른 용도로 사용됩니다.
+
+**해설:**
+
+javascript
+
+Copy
+
+`// React.memo() - 컴포넌트 메모이제이션 const MemoizedComponent = React.memo(({data}) => {   return <div>{data}</div>; }); // useMemo() - 값 메모이제이션 const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]); // useCallback() - 함수 메모이제이션 const memoizedCallback = useCallback(   () => {    doSomething(a, b);  },  [a, b], );`
+
+### Q26: React의 에러 경계(Error Boundaries)에 대해 설명해주세요.
+
+**답변:** 에러 경계는 하위 컴포넌트 트리의 JavaScript 에러를 포착하고 처리하는 React 컴포넌트입니다.
+
+**해설:**
+
+javascript
+
+Copy
+
+`class ErrorBoundary extends React.Component {   constructor(props) {    super(props);    this.state = { hasError: false };  }   static getDerivedStateFromError(error) {    return { hasError: true };  }   componentDidCatch(error, errorInfo) {    logErrorToService(error, errorInfo);  }   render() {    if (this.state.hasError) {      return <h1>Something went wrong.</h1>;    }    return this.props.children;  } }`
+
+
+## CSS 심화
+
+### Q29: CSS 애니메이션 성능 최적화 방법은?
+
+**답변:** CSS 애니메이션 성능은 브라우저의 렌더링 파이프라인에 큰 영향을 미칩니다.
+
+**해설:**
+
+css
+
+Copy
+
+`/* 나쁜 예시 */ .animation-bad {   animation: move 1s; } @keyframes move {   from { left: 0; }  to { left: 100px; } } /* 좋은 예시 */ .animation-good {   animation: moveTransform 1s; } @keyframes moveTransform {   from { transform: translateX(0); }  to { transform: translateX(100px); } }`
