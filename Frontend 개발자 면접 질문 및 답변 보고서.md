@@ -207,6 +207,32 @@ const handleModalOpen = () => {
     - 갤러리/대시보드
     - 복잡한 2차원 레이아웃이 필요한 경우
 
+### Q3: CSS 애니메이션 성능 최적화 방법은?
+
+**답변:** `CSS` 애니메이션 성능은 브라우저의 렌더링 파이프라인에 큰 영향을 미칩니다.
+
+**해설:**
+
+```css
+/* 나쁜 예시 */
+.animation-bad {
+  animation: move 1s;
+}
+@keyframes move {
+  from { left: 0; }
+  to { left: 100px; }
+}
+
+/* 좋은 예시 */
+.animation-good {
+  animation: moveTransform 1s;
+}
+@keyframes moveTransform {
+  from { transform: translateX(0); }
+  to { transform: translateX(100px); }
+}
+```
+
 ---
 
 ## JavaScript
@@ -257,6 +283,60 @@ element.addEventListener('click', function(e) {
 - 기본적으로 `버블링`이 더 자주 사용됨
 - `event.stopPropagation()`으로 **전파를 중단**할 수 있음
 - `이벤트 위임(Event Delegation) 패턴` 구현에 활용
+
+### Q3: Promise와 async/await의 차이점과 사용 케이스는?
+
+**답변:** `Promise`와 `async`/`await`는 **비동기 처리를 위한 패턴**으로, 각각의 장단점이 있습니다.
+
+**해설:**
+
+```js
+// Promise 체이닝
+fetchUser()
+  .then(user => fetchUserPosts(user.id))
+  .then(posts => {
+    console.log(posts);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
+// async/await
+async function getUserPosts() {
+  try {
+    const user = await fetchUser();
+    const posts = await fetchUserPosts(user.id);
+    console.log(posts);
+  } catch (error) {
+    console.error(error);
+  }
+}
+```
+
+### Q4: 이벤트 루프와 태스크 큐에 대해 설명해주세요.
+
+**답변:** `이벤트 루프`는 `JavaScript`의 **동시성 모델을 구현하는 메커니즘**입니다.
+
+**해설:**
+
+```js
+console.log('시작');
+
+setTimeout(() => {
+  console.log('타이머');
+}, 0);
+
+Promise.resolve()
+  .then(() => console.log('프로미스'));
+
+console.log('끝');
+
+// 출력 순서:
+// 시작
+// 끝
+// 프로미스
+// 타이머
+```
 
 ---
 ## React
@@ -378,6 +458,61 @@ Recoil:
 - 단점:
     - 비교적 새로운 기술로 생태계가 작음
     - Facebook 의존성
+
+
+### Q5: React.memo(), useMemo(), useCallback()의 차이점과 사용 시기는?
+
+**답변:** 세 가지 모두 **성능 최적화를 위한 도구**이지만, 각각 다른 용도로 사용됩니다.
+
+**해설:**
+
+```js
+// React.memo() - 컴포넌트 메모이제이션
+const MemoizedComponent = React.memo(({data}) => {
+  return <div>{data}</div>;
+});
+
+// useMemo() - 값 메모이제이션
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+
+// useCallback() - 함수 메모이제이션
+const memoizedCallback = useCallback(
+  () => {
+    doSomething(a, b);
+  },
+  [a, b],
+);
+```
+
+### Q6: React의 에러 경계(Error Boundaries)에 대해 설명해주세요.
+
+**답변:** `에러 경계`는 **하위 컴포넌트 트리의 `JavaScript` 에러를 포착하고 처리하는 `React` 컴포넌트**입니다.
+
+**해설:**
+
+```js
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    logErrorToService(error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong.</h1>;
+    }
+    return this.props.children;
+  }
+}
+```
 
 ---
 
@@ -574,69 +709,3 @@ test('counter increments when button is clicked', () => {
 - 신뢰할 수 있는 결과 제공
 
 
-## 모던 JavaScript
-
-### Q23: Promise와 async/await의 차이점과 사용 케이스는?
-
-**답변:** Promise와 async/await는 비동기 처리를 위한 패턴으로, 각각의 장단점이 있습니다.
-
-**해설:**
-
-javascript
-
-Copy
-
-`// Promise 체이닝 fetchUser()   .then(user => fetchUserPosts(user.id))  .then(posts => {    console.log(posts);  })  .catch(error => {    console.error(error);  }); // async/await async function getUserPosts() {   try {    const user = await fetchUser();    const posts = await fetchUserPosts(user.id);    console.log(posts);  } catch (error) {    console.error(error);  } }`
-
-### Q24: 이벤트 루프와 태스크 큐에 대해 설명해주세요.
-
-**답변:** 이벤트 루프는 JavaScript의 동시성 모델을 구현하는 메커니즘입니다.
-
-**해설:**
-
-javascript
-
-Copy
-
-`console.log('시작'); setTimeout(() => {   console.log('타이머'); }, 0); Promise.resolve()   .then(() => console.log('프로미스')); console.log('끝'); // 출력 순서: // 시작 // 끝 // 프로미스 // 타이머`
-
-## React 심화
-
-### Q25: React.memo(), useMemo(), useCallback()의 차이점과 사용 시기는?
-
-**답변:** 세 가지 모두 성능 최적화를 위한 도구이지만, 각각 다른 용도로 사용됩니다.
-
-**해설:**
-
-javascript
-
-Copy
-
-`// React.memo() - 컴포넌트 메모이제이션 const MemoizedComponent = React.memo(({data}) => {   return <div>{data}</div>; }); // useMemo() - 값 메모이제이션 const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]); // useCallback() - 함수 메모이제이션 const memoizedCallback = useCallback(   () => {    doSomething(a, b);  },  [a, b], );`
-
-### Q26: React의 에러 경계(Error Boundaries)에 대해 설명해주세요.
-
-**답변:** 에러 경계는 하위 컴포넌트 트리의 JavaScript 에러를 포착하고 처리하는 React 컴포넌트입니다.
-
-**해설:**
-
-javascript
-
-Copy
-
-`class ErrorBoundary extends React.Component {   constructor(props) {    super(props);    this.state = { hasError: false };  }   static getDerivedStateFromError(error) {    return { hasError: true };  }   componentDidCatch(error, errorInfo) {    logErrorToService(error, errorInfo);  }   render() {    if (this.state.hasError) {      return <h1>Something went wrong.</h1>;    }    return this.props.children;  } }`
-
-
-## CSS 심화
-
-### Q29: CSS 애니메이션 성능 최적화 방법은?
-
-**답변:** CSS 애니메이션 성능은 브라우저의 렌더링 파이프라인에 큰 영향을 미칩니다.
-
-**해설:**
-
-css
-
-Copy
-
-`/* 나쁜 예시 */ .animation-bad {   animation: move 1s; } @keyframes move {   from { left: 0; }  to { left: 100px; } } /* 좋은 예시 */ .animation-good {   animation: moveTransform 1s; } @keyframes moveTransform {   from { transform: translateX(0); }  to { transform: translateX(100px); } }`
