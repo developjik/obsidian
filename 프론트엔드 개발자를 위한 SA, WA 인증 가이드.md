@@ -90,9 +90,9 @@ apiClient.interceptors.response.use(
 );
 ```
 
-### 2. 성능 모니터링 및 최적화
+## 2. 성능 모니터링 및 최적화
 
-SA/WA 인증에서 중요한 성능 모니터링 구현 예시입니다.
+`SA`/`WA` 인증에서 중요한 성능 모니터링 구현 예시입니다.
 
 ```typescript
 // utils/performance-monitoring.ts
@@ -132,9 +132,9 @@ export const performanceMonitor = {
 };
 ```
 
-### 3. 접근성 준수
+## 3. 접근성 준수
 
-WA 인증에서 중요한 접근성 구현 예시입니다.
+`WA` 인증에서 중요한 **접근성 구현** 예시입니다.
 
 ```tsx
 // components/AccessibleButton.tsx
@@ -172,9 +172,9 @@ export const AccessibleButton: React.FC<AccessibleButtonProps> = ({
 };
 ```
 
-### 4. 보안 관련 구현
+## 4. 보안 관련 구현
 
-SA 인증에서 중요한 보안 관련 구현 예시입니다.
+`SA` 인증에서 중요한 보안 관련 구현 예시입니다.
 
 ```typescript
 // middleware.ts
@@ -201,9 +201,9 @@ export const config = {
 };
 ```
 
-### 5. 테스트 자동화
+## 5. 테스트 자동화
 
-SA/WA 인증에서 중요한 테스트 자동화 구현 예시입니다.
+`SA`/`WA` 인증에서 중요한 테스트 자동화 구현 예시입니다.
 
 ```typescript
 // __tests__/components/AccessibleButton.test.tsx
@@ -243,7 +243,7 @@ describe('AccessibleButton', () => {
 });
 ```
 
-### 구현 시 주의사항
+## 구현 시 주의사항
 
 1. 성능 모니터링
    - 클라이언트 사이드 성능 메트릭을 주기적으로 수집하고 분석
@@ -267,7 +267,7 @@ describe('AccessibleButton', () => {
 
 ## 프론트엔드 개발자를 위한 체크리스트
 
-SA/WA 인증 준비 시 프론트엔드 개발자가 확인해야 할 사항들입니다:
+`SA`/`WA` 인증 준비 시 프론트엔드 개발자가 확인해야 할 사항들입니다:
 
 1. 코드 품질
    - ESLint, Prettier 설정
