@@ -1,4 +1,4 @@
-`Swagger(OpenAPI)` `.yaml` 파일에서 `Zod` 스키마를 `TypeScript`로 추출하는 다양한 방법을 설명해드리겠습니다.
+`Swagger(OpenAPI)` 의 `.yaml` 파일에서 `Zod 스키마`를 `TypeScript`로 추출하는 다양한 방법을 설명해드리겠습니다.
 
 1. `openapi-zod-client` 사용하기
 ```bash
@@ -23,7 +23,7 @@ import { z } from 'zod';
 extendZodWithOpenApi(z);
 ```
 
-3. zodios 사용하기
+3. `zodios` 사용하기
 ```bash
 # 설치
 npm install @zodios/core @zodios/openapi zod
@@ -219,3 +219,4 @@ zodios:
   - 설정이 복잡할 수 있음
   - 번들 크기가 큼
 
+더 자세한 설명이나 특정 사용 사례에 대해 궁금하신 점이 있다면 말씀해 주세요!
