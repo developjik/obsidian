@@ -247,10 +247,6 @@ npx openapi-typescript swagger.yaml -o types.ts --cache-dir .cache
 npx openapi-typescript swagger.yaml -o types.ts --pick "/users/*,/products/*"
 ```
 
-## 결론
-
-OpenAPI 스펙에서 TypeScript 타입을 추출하는 것은 프론트엔드 개발의 중요한 부분입니다. 프로젝트의 규모와 요구사항에 따라 적절한 도구를 선택하고, 자동화된 프로세스를 구축하는 것이 중요합니다. 위에서 설명한 도구들과 전략들을 활용하여 타입 안전한 프론트엔드 개발을 진행하시기 바랍니다.
-
 ### 참고 자료
 - [openapi-typescript 공식 문서](https://github.com/drwpow/openapi-typescript)
 - [swagger-typescript-api 공식 문서](https://github.com/acacode/swagger-typescript-api)
