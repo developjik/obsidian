@@ -63,7 +63,7 @@ const validatedUser = userSchema.parse(data);
 const response = await api.getUser({ params: { id: 1 } });
 ```
 
-2. @asteasolutions/zod-to-openapi 상세 예시:
+2. `@asteasolutions/zod-to-openapi` 상세 예시:
 ```typescript
 import { extendZodWithOpenApi, OpenAPIRegistry } from '@asteasolutions/zod-to-openapi';
 import { z } from 'zod';
@@ -90,7 +90,7 @@ const document = registry.createDocument({
 });
 ```
 
-3. zodios 상세 사용법:
+3. `zodios` 상세 사용법:
 ```typescript
 import { Zodios } from '@zodios/core';
 import { generateZodClientFromOpenAPI } from '@zodios/openapi';
@@ -218,5 +218,3 @@ zodios:
 - 단점:
   - 설정이 복잡할 수 있음
   - 번들 크기가 큼
-
-더 자세한 설명이나 특정 사용 사례에 대해 궁금하신 점이 있다면 말씀해 주세요!
