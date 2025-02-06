@@ -7,36 +7,71 @@
 ---
 ## 기본 사용 예시
 
-### 1. 배열의 요소 타입 추출하기
+### 1. 배열 요소 타입 추출하기
 
 ```typescript
 type ArrayElement<T> = T extends Array<infer U> ? U : never;
 
-// 사용 예시
+// 예제 1: 단순 문자열 배열
 type StringArray = string[];
-type ElementType = ArrayElement<StringArray>; // string
+type ElementType = ArrayElement<StringArray>;
+// 동작 과정:
+// 1. StringArray는 Array<string>과 동일
+// 2. Array<string>이 Array<infer U>와 매칭됨
+// 3. U는 string으로 추론됨
+// 결과: ElementType은 string
 
-type NumberArray = Array<number>;
-type NumberType = ArrayElement<NumberArray>; // number
+// 예제 2: 유니온 타입 배열
+type MixedArray = (string | number)[];
+type MixedElement = ArrayElement<MixedArray>;
+// 동작 과정:
+// 1. MixedArray는 Array<string | number>와 동일
+// 2. Array<string | number>가 Array<infer U>와 매칭됨
+// 3. U는 string | number로 추론됨
+// 결과: MixedElement는 string | number
 
-// 튜플에서도 작동합니다
-type TupleType = ArrayElement<[string, number]>; // string | number
+// 예제 3: 튜플
+type TupleType = ArrayElement<[string, number, boolean]>;
+// 동작 과정:
+// 1. [string, number, boolean]은 Array의 하위 타입
+// 2. infer U는 튜플의 모든 가능한 타입을 추론
+// 결과: TupleType은 string | number | boolean
 ```
 
-### 2. 함수의 반환 타입 추출하기
+### 2. 함수 반환 타입 추출하기
 
 ```typescript
 type ReturnType<T> = T extends (...args: any[]) => infer R ? R : never;
 
-// 사용 예시
-function getMessage(): string {
-    return "Hello, World!";
+// 예제 1: 단순 함수
+function greet(name: string): string {
+    return `Hello, ${name}!`;
 }
+type GreetReturn = ReturnType<typeof greet>;
+// 동작 과정:
+// 1. typeof greet는 (name: string) => string 타입
+// 2. 이 타입이 (...args: any[]) => infer R과 매칭됨
+// 3. R은 string으로 추론됨
+// 결과: GreetReturn은 string
 
-type MessageType = ReturnType<typeof getMessage>; // string
+// 예제 2: 제네릭 함수
+function identity<T>(value: T): T {
+    return value;
+}
+type IdentityReturn = ReturnType<typeof identity>;
+// 동작 과정:
+// 1. typeof identity는 <T>(value: T) => T 타입
+// 2. 실제 반환 타입이 unknown으로 추론됨
+// 결과: IdentityReturn은 unknown
 
-const addNumbers = (a: number, b: number) => a + b;
-type AddReturn = ReturnType<typeof addNumbers>; // number
+// 예제 3: 복잡한 반환 타입
+function processData(): { data: string[]; count: number } {
+    return { data: [], count: 0 };
+}
+type ProcessReturn = ReturnType<typeof processData>;
+// 동작 과정:
+// 1. 함수의 반환 타입이 객체 타입으로 추론됨
+// 결과: ProcessReturn은 { data: string[]; count: number }
 ```
 
 ### 3. 함수의 매개변수 타입 추출하기
@@ -146,83 +181,6 @@ type KeyHandlerParams = EventHandler<typeof onKeyPress>; // [KeyboardEvent]
 1. `infer`는 반드시 **조건부 타입**(`extends` 조건문) 내에서만 사용할 수 있습니다.
 2. 하나의 조건부 타입에서 여러 개의 `infer`를 사용할 수 있습니다.
 3. 추론된 타입이 없는 경우 조건부 타입의 `false` 분기가 선택됩니다.
-
-
-
-### 1. 배열 요소 타입 추출하기
-
-```typescript
-type ArrayElement<T> = T extends Array<infer U> ? U : never;
-```
-
-이 타입의 작동 방식을 단계별로 살펴보겠습니다:
-
-```typescript
-// 예제 1: 단순 문자열 배열
-type StringArray = string[];
-type ElementType = ArrayElement<StringArray>;
-// 동작 과정:
-// 1. StringArray는 Array<string>과 동일
-// 2. Array<string>이 Array<infer U>와 매칭됨
-// 3. U는 string으로 추론됨
-// 결과: ElementType은 string
-
-// 예제 2: 유니온 타입 배열
-type MixedArray = (string | number)[];
-type MixedElement = ArrayElement<MixedArray>;
-// 동작 과정:
-// 1. MixedArray는 Array<string | number>와 동일
-// 2. Array<string | number>가 Array<infer U>와 매칭됨
-// 3. U는 string | number로 추론됨
-// 결과: MixedElement는 string | number
-
-// 예제 3: 튜플
-type TupleType = ArrayElement<[string, number, boolean]>;
-// 동작 과정:
-// 1. [string, number, boolean]은 Array의 하위 타입
-// 2. infer U는 튜플의 모든 가능한 타입을 추론
-// 결과: TupleType은 string | number | boolean
-```
-
-### 2. 함수 반환 타입 추출하기
-
-```typescript
-type ReturnType<T> = T extends (...args: any[]) => infer R ? R : never;
-```
-
-상세 예제와 설명:
-
-```typescript
-// 예제 1: 단순 함수
-function greet(name: string): string {
-    return `Hello, ${name}!`;
-}
-type GreetReturn = ReturnType<typeof greet>;
-// 동작 과정:
-// 1. typeof greet는 (name: string) => string 타입
-// 2. 이 타입이 (...args: any[]) => infer R과 매칭됨
-// 3. R은 string으로 추론됨
-// 결과: GreetReturn은 string
-
-// 예제 2: 제네릭 함수
-function identity<T>(value: T): T {
-    return value;
-}
-type IdentityReturn = ReturnType<typeof identity>;
-// 동작 과정:
-// 1. typeof identity는 <T>(value: T) => T 타입
-// 2. 실제 반환 타입이 unknown으로 추론됨
-// 결과: IdentityReturn은 unknown
-
-// 예제 3: 복잡한 반환 타입
-function processData(): { data: string[]; count: number } {
-    return { data: [], count: 0 };
-}
-type ProcessReturn = ReturnType<typeof processData>;
-// 동작 과정:
-// 1. 함수의 반환 타입이 객체 타입으로 추론됨
-// 결과: ProcessReturn은 { data: string[]; count: number }
-```
 
 ### 3. 중첩된 Promise 타입 추출하기
 
