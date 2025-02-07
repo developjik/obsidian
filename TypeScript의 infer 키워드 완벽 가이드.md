@@ -87,6 +87,8 @@ function processUser(id: number, name: string) {
 type FirstParam = FirstParameter<typeof processUser>; // number
 ```
 
+---
+
 ## 고급 사용 예시
 
 ### 1. Promise 결과 타입 추출하기
@@ -101,88 +103,7 @@ type UnwrappedString = UnwrapPromise<PromiseString>; // string
 type RegularType = UnwrapPromise<number>; // number (Promise가 아닌 경우 원래 타입 반환)
 ```
 
-### 2. 중첩된 객체에서 특정 타입 추출하기
-
-```typescript
-type DeepPropertyType<T, P> = P extends keyof T
-    ? T[P]
-    : T extends object
-    ? T extends Array<any>
-        ? never
-        : { [K in keyof T]: DeepPropertyType<T[K], P> }[keyof T]
-    : never;
-
-// 사용 예시
-interface User {
-    id: number;
-    info: {
-        name: string;
-        settings: {
-            theme: string;
-        }
-    }
-}
-
-type ThemeType = DeepPropertyType<User, 'theme'>; // string
-```
-
-### 3. 생성자 매개변수 타입 추출하기
-
-```typescript
-type ConstructorParameters<T> = T extends new (...args: infer P) => any ? P : never;
-
-// 사용 예시
-class Person {
-    constructor(name: string, age: number) {}
-}
-
-type PersonConstructorParams = ConstructorParameters<typeof Person>; // [string, number]
-```
-
-## 실전 활용 사례
-
-### 1. API 응답 타입 추론하기
-
-```typescript
-type ApiResponse<T> = {
-    data: T;
-    status: number;
-    message: string;
-};
-
-type ExtractApiData<T> = T extends ApiResponse<infer U> ? U : never;
-
-// 사용 예시
-interface UserData {
-    id: number;
-    name: string;
-}
-
-type UserResponse = ApiResponse<UserData>;
-type ExtractedUserData = ExtractApiData<UserResponse>; // UserData
-```
-
-### 2. 이벤트 핸들러 타입 추출하기
-
-```typescript
-type EventHandler<T> = T extends (...args: infer A) => void ? A : never;
-
-// 사용 예시
-function onClick(event: MouseEvent) {}
-function onKeyPress(event: KeyboardEvent) {}
-
-type ClickHandlerParams = EventHandler<typeof onClick>; // [MouseEvent]
-type KeyHandlerParams = EventHandler<typeof onKeyPress>; // [KeyboardEvent]
-```
-
----
-## 주의사항 및 팁
-
-1. `infer`는 반드시 **조건부 타입**(`extends` 조건문) 내에서만 사용할 수 있습니다.
-2. 하나의 조건부 타입에서 여러 개의 `infer`를 사용할 수 있습니다.
-3. 추론된 타입이 없는 경우 조건부 타입의 `false` 분기가 선택됩니다.
-
-### 3. 중첩된 Promise 타입 추출하기
+### 2.  중첩된 Promise 타입 추출하기
 
 ```typescript
 type UnwrapPromise<T> = T extends Promise<infer U> 
@@ -221,45 +142,49 @@ type Unwrapped3 = UnwrapPromise<NotPromise>;
 // 2. 조건이 false이므로 원본 타입 반환
 // 결과: Unwrapped3은 string
 ```
+```
 
-### 4. 생성자 파라미터 타입 추출하기
+```
+
+### 3. 중첩된 객체에서 특정 타입 추출하기
+
+```typescript
+type DeepPropertyType<T, P> = P extends keyof T
+    ? T[P]
+    : T extends object
+    ? T extends Array<any>
+        ? never
+        : { [K in keyof T]: DeepPropertyType<T[K], P> }[keyof T]
+    : never;
+
+// 사용 예시
+interface User {
+    id: number;
+    info: {
+        name: string;
+        settings: {
+            theme: string;
+        }
+    }
+}
+
+type ThemeType = DeepPropertyType<User, 'theme'>; // string
+```
+
+### 4. 생성자 매개변수 타입 추출하기
 
 ```typescript
 type ConstructorParameters<T> = T extends new (...args: infer P) => any ? P : never;
-```
 
-실제 사용 예제:
-
-```typescript
-// 예제 1: 기본 클래스 생성자
-class User {
+// 사용 예시
+class Person {
     constructor(name: string, age: number) {}
 }
-type UserConstructorParams = ConstructorParameters<typeof User>;
-// 동작 과정:
-// 1. typeof User는 생성자 타입을 나타냄
-// 2. new (...args: infer P) => any와 매칭
-// 3. P는 [name: string, age: number] 튜플로 추론
-// 결과: UserConstructorParams는 [string, number]
 
-// 예제 2: 선택적 매개변수가 있는 생성자
-class Config {
-    constructor(data: string, options?: { debug: boolean }) {}
-}
-type ConfigParams = ConstructorParameters<typeof Config>;
-// 동작 과정:
-// 1. 선택적 매개변수를 포함한 타입 추론
-// 결과: ConfigParams는 [string, { debug: boolean }?]
-
-// 예제 3: 제네릭 클래스
-class Container<T> {
-    constructor(value: T) {}
-}
-type ContainerParams = ConstructorParameters<typeof Container>;
-// 동작 과정:
-// 1. 제네릭 클래스의 생성자 타입 추론
-// 결과: ContainerParams는 [unknown]
+type PersonConstructorParams = ConstructorParameters<typeof Person>; // [string, number]
 ```
+
+---
 
 ## 실전 활용 예제
 
@@ -392,3 +317,9 @@ interface DeepObject {
 type AllIdTypes = DeepPropertyType<DeepObject, 'id'>; // number | string | boolean
 ```
 
+---
+## 주의사항 및 팁
+
+1. `infer`는 반드시 **조건부 타입**(`extends` 조건문) 내에서만 사용할 수 있습니다.
+2. 하나의 조건부 타입에서 여러 개의 `infer`를 사용할 수 있습니다.
+3. 추론된 타입이 없는 경우 조건부 타입의 `false` 분기가 선택됩니다.
