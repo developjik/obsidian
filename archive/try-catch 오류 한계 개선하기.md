@@ -1,4 +1,4 @@
-## try/catch 개선
+## try/catch 개선하기
 
 ### 1️⃣ 유틸리티 fn
 
