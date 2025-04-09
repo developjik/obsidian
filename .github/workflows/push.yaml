@@ -1,0 +1,16 @@
+name: Discord Push Notification
+
+on:
+  push:  # 브랜치 제한 없이 모든 푸시에 대해 트리거
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord notification
+        uses: developjik/notify-action-hub/notify-on-push@main  # 액션 경로 (사용자명 변경 필요)
+        with:
+          discord_webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}  # Discord 웹훅 URL 참조
+          include_diff_links: 'true'  # 커밋 상세 링크 포함
+          min_commit_count: '1'  # 최소 커밋 수
+          show_quality_score: 'true'  # 품질 점수 표시
